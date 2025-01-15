@@ -1,0 +1,25 @@
+import (
+    "fmt"
+)
+
+// Define a custom error struct
+type CustomError struct {
+    msg string
+}
+
+// Implement the Error() method for the custom error struct
+func (err *CustomError) Error() string {
+    return err.msg
+}
+
+// Create an error instance using the custom error struct
+func CustomErrorInstance() error {
+    return &CustomError{
+        msg: "File type not supported",
+    }
+}
+
+func main() {
+    err := CustomErrorInstance()
+    fmt.Println(err.Error()) // Output: File type not supported
+}

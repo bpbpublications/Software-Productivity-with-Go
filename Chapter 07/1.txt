@@ -1,0 +1,29 @@
+package main
+
+import (
+    "fmt"
+    "time"
+
+    "github.com/dgrijalva/jwt-go"
+)
+
+func main() {
+    // Simulating successful user authentication
+    userID := "user123"
+    secretKey := []byte("secret_key")
+
+    // Create a new JWT token
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+        "user_id": userID,
+        "exp":     time.Now().Add(time.Hour * 24).Unix(),
+    })
+
+    // Sign the token with a secret key
+    tokenString, err := token.SignedString(secretKey)
+    if err != nil {
+        fmt.Println("Error creating token:", err)
+        return
+    }
+
+    fmt.Println("JWT Token:", tokenString)
+}

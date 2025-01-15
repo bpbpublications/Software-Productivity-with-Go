@@ -1,0 +1,25 @@
+import (
+    "fmt"
+    "time"
+)
+
+// CustomError is a custom error type with detailed information.
+type CustomError struct {
+    Message   string
+    ErrorCode int
+    Timestamp time.Time
+}
+
+func (e *CustomError) Error() string {
+    return fmt.Sprintf("Error: %s (Code: %d, Timestamp: %s)", e.Message, e.ErrorCode, e.Timestamp.String())
+}
+
+func main() {
+    err := &CustomError{
+        Message:   "An error occurred",
+        ErrorCode: 500,
+        Timestamp: time.Now(),
+    }
+
+    fmt.Println(err.Error())
+}

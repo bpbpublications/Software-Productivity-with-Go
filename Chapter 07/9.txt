@@ -1,0 +1,12 @@
+package main
+
+import (
+    "github.com/hashicorp/vault/api"
+    "fmt"
+)
+
+func main() {
+    client, _ := api.NewClient(&api.Config{Address: "http://localhost:8200"})
+    secret, _ := client.Logical().Read("secret/data/myapp")
+    fmt.Println("Secret Value:", secret.Data["password"])
+}

@@ -1,0 +1,36 @@
+package main
+
+import "fmt"
+
+func main() {
+    // Using signed integers
+    var num1 int8 = 127   // Range: -128 to 127
+    var num2 int16 = 32767 // Range: -32768 to 32767
+    var num3 int32 = 2147483647 // Range: -2147483648 to 2147483647
+    var num4 int64 = 9223372036854775807 // Range: -9223372036854775808 to 9223372036854775807
+    
+    // Using unsigned integers
+    var num5 uint8 = 255   // Range: 0 to 255
+    var num6 uint16 = 65535 // Range: 0 to 65535
+    var num7 uint32 = 4294967295 // Range: 0 to 4294967295
+    var num8 uint64 = 18446744073709551615 // Range: 0 to 18446744073709551615
+    
+    // Using int and uint (size depends on architecture)
+    var num9 int = 42 // Size: either 32 or 64 bits depending on architecture
+    var num10 uint = 99 // Size: either 32 or 64 bits depending on architecture
+    
+    // Using rune and byte
+    var char rune = 'A' // Represents a Unicode code point (int32)
+    var b byte = 65    // Same as uint8, representing ASCII value
+    
+    // Using uintptr
+    var ptrValue *int
+    ptrValue = new(int)
+    var ptr uintptr = uintptr(unsafe.Pointer(ptrValue))
+    
+    fmt.Printf("Signed Integers: %d %d %d %d\n", num1, num2, num3, num4)
+    fmt.Printf("Unsigned Integers: %d %d %d %d\n", num5, num6, num7, num8)
+    fmt.Printf("int and uint: %d %d\n", num9, num10)
+    fmt.Printf("Rune and Byte: %c %c\n", char, b)
+    fmt.Printf("uintptr: %x\n", ptr)
+}

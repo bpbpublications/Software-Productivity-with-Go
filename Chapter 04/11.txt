@@ -1,0 +1,21 @@
+func dijkstra(graph map[int]map[int]int, start int) map[int]int {
+distances := make(map[int]int)
+for vertex := range graph {
+distances[vertex] = math.MaxInt32
+}
+distances[start] = 0
+
+pq := make(PriorityQueue, 0)
+heap.Push(&pq, &Item{value: start, priority: 0})
+
+for pq.Len() > 0 {
+current := heap.Pop(&pq).(*Item).value
+for neighbor, weight := range graph[current] {
+if distances[current]+weight < distances[neighbor] {
+distances[neighbor] = distances[current] + weight
+heap.Push(&pq, &Item{value: neighbor, priority: distances[neighbor]})
+}
+}
+}
+return distances
+}

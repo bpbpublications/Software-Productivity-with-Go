@@ -1,0 +1,18 @@
+package main
+
+import (
+    "fmt"
+    "errors"
+)
+
+func main() {
+    err := sensitiveOperation()
+    if err != nil {
+        fmt.Println("Error:", err)
+    }
+}
+
+func sensitiveOperation() error {
+    return errors.Wrap(fmt.Errorf("underlying error"), "failed to perform sensitive operation")
+}
+

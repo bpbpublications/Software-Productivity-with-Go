@@ -1,0 +1,21 @@
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func main() {
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        _, err := performSensitiveOperation()
+        if err != nil {
+            http.Error(w, "An error occurred. Please try again later.", http.StatusInternalServerError)
+        }
+    })
+    http.ListenAndServe(":8080", nil)
+}
+
+func performSensitiveOperation() error {
+    // Sensitive operation code here
+    return fmt.Errorf("error message with sensitive details")
+}

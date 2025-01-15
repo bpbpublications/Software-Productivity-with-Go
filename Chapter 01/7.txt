@@ -1,0 +1,17 @@
+func handleRequest(clientConn net.Conn) {
+    // Handle the incoming client request here
+    // ...
+    clientConn.Close() // Close the client connection when done
+}
+
+func main() {
+    listener, _ := net.Listen("tcp", ":8080")
+
+    for {
+        clientConn, _ := listener.Accept()
+
+        // Handle each client request concurrently using Goroutines
+        go handleRequest(clientConn)
+    }
+}
+

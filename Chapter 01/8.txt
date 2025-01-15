@@ -1,0 +1,15 @@
+func processData(data []int) {
+    // Process the data concurrently
+    // ...
+}
+
+func main() {
+    data := []int{1, 2, 3, 4, 5, /* ... */}
+
+    // Divide the data into segments for parallel processing
+    segmentSize := len(data) / 4
+    for i := 0; i < len(data); i += segmentSize {
+        go processData(data[i : i+segmentSize])
+    }
+}
+

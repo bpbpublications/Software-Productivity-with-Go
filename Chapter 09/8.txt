@@ -1,0 +1,21 @@
+func CopyFile(dstName, srcName string) (written int64, err error) {
+    // Open the source file
+    src, err := os.Open(srcName)
+    if err != nil {
+        return // Return error if opening source file fails
+    }
+    defer src.Close() // Close the source file when done, even in case of error
+
+    // Create the destination file
+    dst, err := os.Create(dstName)
+    if err != nil {
+        return // Return error if creating destination file fails
+    }
+    defer dst.Close() // Close the destination file when done, even in case of error
+
+    // Copy contents from source to destination
+    written, err = io.Copy(dst, src)
+
+    // Return the number of bytes written and any error
+    return
+}

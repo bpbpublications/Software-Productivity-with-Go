@@ -1,0 +1,39 @@
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    sensorA := make(chan float64)
+    sensorB := make(chan float64)
+
+    // Simulate data collection from Sensor A and Sensor B
+    go func() {
+        for {
+            temperature := 20.0 + 5.0*rand.Float64() // Simulating random temperature readings
+            sensorA <- temperature
+            time.Sleep(time.Second * 2) // Simulating data every 2 seconds
+        }
+    }()
+
+    go func() {
+        for {
+            temperature := 25.0 + 5.0*rand.Float64() // Simulating random temperature readings
+            sensorB <- temperature
+            time.Sleep(time.Second * 3) // Simulating data every 3 seconds
+        }
+    }()
+
+    // Process temperature data from sensors
+    for {
+        select {
+        case tempA := <-sensorA:
+            fmt.Printf("Sensor A: %.2f°C\n", tempA)
+        case tempB := <-sensorB:
+            fmt.Printf("Sensor B: %.2f°C\n", tempB)
+        }
+    }
+}
+

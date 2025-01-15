@@ -1,0 +1,17 @@
+package main
+
+import (
+    "fmt"
+    "html"
+)
+
+func main() {
+    // Simulated user input
+    userInput := "<script>alert('XSS attack')</script>"
+
+    // Sanitize user input
+    sanitizedInput := html.EscapeString(userInput)
+
+    fmt.Println("Original input:", userInput)
+    fmt.Println("Sanitized input:", sanitizedInput)
+}

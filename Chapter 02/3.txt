@@ -1,0 +1,22 @@
+package main
+
+import (
+    "log"
+    "os"
+)
+
+func main() {
+    // Create an empty file named "helloo.txt"
+    // Using the Create() function from the "os" package
+    myfile, err := os.Create("helloo.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // Print the file information to the console
+    log.Println("Created file:", myfile.Name())
+
+    // Close the file to release resources
+    myfile.Close()
+}
+

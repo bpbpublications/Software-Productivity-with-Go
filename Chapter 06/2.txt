@@ -1,0 +1,22 @@
+
+func handleConnection(conn net.Conn) {
+defer conn.Close()
+
+buffer := make([]byte, 1024)
+
+for {
+// Read data from the client
+n, err := conn.Read(buffer)
+if err != nil {
+fmt.Println("Error reading:", err)
+return
+}
+
+// Echo the data back to the client
+_, err = conn.Write(buffer[:n])
+if err != nil {
+fmt.Println("Error writing:", err)
+return
+}
+}
+}

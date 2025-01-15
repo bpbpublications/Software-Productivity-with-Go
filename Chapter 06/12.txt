@@ -1,0 +1,54 @@
+package main
+
+import (
+"log"
+"net"
+"net/http"
+
+"github.com/lucas-clemente/quic-go"
+"github.com/lucas-clemente/quic-go/http3"
+)
+
+func main() {
+listenAddr := "localhost:8080"
+certFile := "server.crt"
+keyFile := "server.key"
+
+// Create a QUIC listener
+listener, err := quic.ListenAddr(listenAddr, generateTLSConfig(certFile, keyFile), nil)
+if err != nil {
+log.Fatal(err)
+}
+defer listener.Close()
+
+log.Printf("Listening on %s...\n", listenAddr)
+
+mux := http.NewServeMux()
+mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+w.Header().Set("Content-Type", "text/plain")
+w.Write([]byte("Hello, HTTP/3!\n"))
+})
+
+handler := http3.Handler{
+Handler: mux,
+}
+
+// Start the HTTP/3 server
+if err := http.Serve(listener, handler); err != nil {
+log.Fatal(err)
+}
+}
+
+func generateTLSConfig(certFile, keyFile string) *quic.Config {
+tlsConfig := &quic.Config{
+Version: quic.VersionDraft34, // HTTP/3 Draft version
+}
+
+cert, err := tls.LoadX509KeyPair(certFile, keyFile)
+if err != nil {
+log.Fatal(err)
+}
+tlsConfig.Certificates = []tls.Certificate{cert}
+
+return tlsConfig
+}

@@ -1,0 +1,42 @@
+package main
+
+import (
+"fmt"
+"github.com/lucas-clemente/quic-go"
+"github.com/lucas-clemente/quic-go/http3"
+"io/ioutil"
+"log"
+"net/http"
+)
+
+func main() {
+targetAddr := "localhost:8080"
+
+// Create a QUIC client
+session, err := quic.DialAddr(targetAddr, &http3.Config{
+InsecureTransport: true, // Insecure for testing purposes
+})
+if err != nil {
+log.Fatal(err)
+}
+defer session.Close()
+
+// Create a HTTP/3 client
+client := &http.Client{
+Transport: &http3.RoundTripper{QuicConfig: &http3.Config{}},
+}
+
+// Send an HTTP/3 request
+resp, err := client.Get("https://" + targetAddr)
+if err != nil {
+log.Fatal(err)
+}
+defer resp.Body.Close()
+
+// Read and print the response
+body, err := ioutil.ReadAll(resp.Body)
+if err != nil {
+log.Fatal(err)
+}
+fmt.Printf("Response: %s\n", body)
+}

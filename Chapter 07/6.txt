@@ -1,0 +1,41 @@
+package main
+
+import (
+    "crypto/tls"
+    "fmt"
+    "net"
+)
+
+func main() {
+    cert, err := tls.LoadX509KeyPair("server.crt", "server.key")
+    if err != nil {
+        fmt.Println("Error loading server certificate:", err)
+        return
+    }
+
+    config := tls.Config{Certificates: []tls.Certificate{cert}}
+    ln, err := tls.Listen("tcp", "localhost:8080", &config)
+    if err != nil {
+        fmt.Println("Error creating listener:", err)
+        return
+    }
+    defer ln.Close()
+
+    for {
+        conn, err := ln.Accept()
+        if err != nil {
+            fmt.Println("Error accepting connection:", err)
+            continue
+        }
+        defer conn.Close()
+
+        go handleClient(conn)
+    }
+}
+
+func handleClient(conn net.Conn) {
+    defer conn.Close()
+
+    conn.Write([]byte("Welcome to the secure server!\n"))
+}
+

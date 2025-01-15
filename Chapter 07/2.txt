@@ -1,0 +1,49 @@
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func authenticate(next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        // Simulate authentication
+        isAuthenticated := true
+
+        if !isAuthenticated {
+            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            return
+        }
+
+        next.ServeHTTP(w, r)
+    }
+}
+
+func authorize(role string, next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        // Simulate authorization based on role
+        isAuthorized := role == "admin"
+
+        if !isAuthorized {
+            http.Error(w, "Forbidden", http.StatusForbidden)
+            return
+        }
+
+        next.ServeHTTP(w, r)
+    }
+}
+
+func main() {
+    http.HandleFunc("/admin", authenticate(authorize("admin", adminHandler)))
+    http.HandleFunc("/user", authenticate(userHandler))
+
+    http.ListenAndServe(":8080", nil)
+}
+
+func adminHandler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "Admin Panel")
+}
+
+func userHandler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintln(w, "User Dashboard")
+}

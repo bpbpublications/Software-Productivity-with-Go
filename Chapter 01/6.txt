@@ -1,0 +1,19 @@
+func squareNumbers(numbers []int, ch chan int) {
+    for _, num := range numbers {
+        ch <- num * num // Send the squared result through the channel
+    }
+    close(ch) // Close the channel when all data is sent
+}
+
+func main() {
+    numbers := []int{1, 2, 3, 4, 5}
+    resultChannel := make(chan int)
+
+    // Creating a Goroutine for the squareNumbers function, passing the channel as an argument
+    go squareNumbers(numbers, resultChannel)
+
+    // Receiving the squared results from the channel
+    for squared := range resultChannel {
+        fmt.Println(squared)
+    }
+}

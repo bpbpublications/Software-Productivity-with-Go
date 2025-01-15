@@ -1,0 +1,33 @@
+func topologicalSort(graph map[int][]int) []int {
+indegree := make(map[int]int)
+for node := range graph {
+indegree[node] = 0
+}
+for _, neighbors := range graph {
+for _, neighbor := range neighbors {
+indegree[neighbor]++
+}
+}
+
+queue := make([]int, 0)
+for node, degree := range indegree {
+if degree == 0 {
+queue = append(queue, node)
+}
+}
+
+sortedOrder := make([]int, 0)
+for len(queue) > 0 {
+node := queue[0]
+queue = queue[1:]
+sortedOrder = append(sortedOrder, node)
+
+for _, neighbor := range graph[node] {
+indegree[neighbor]--
+if indegree[neighbor] == 0 {
+queue = append(queue, neighbor)
+}
+}
+}
+return sortedOrder
+}

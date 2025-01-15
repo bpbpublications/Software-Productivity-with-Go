@@ -1,0 +1,19 @@
+import (
+"database/sql"
+"fmt"
+_ "github.com/lib/pq"
+)
+
+func main() {
+// Define the database connection string
+connectionString := "user=myuser dbname=mydb sslmode=disable"
+
+// Open a database connection
+db, err := sql.Open("postgres", connectionString)
+if err != nil {
+panic(err)
+}
+defer db.Close()
+
+// Perform database operations here
+}

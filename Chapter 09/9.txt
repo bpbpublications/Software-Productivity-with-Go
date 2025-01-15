@@ -1,0 +1,12 @@
+
+package main
+import "fmt"
+func main() {
+    fmt.Println("one")        // This is executed first
+    defer fmt.Println("three") // This is scheduled to be executed when main() exits
+    fmt.Println("two")        // This is executed second
+}
+The output will be:
+one
+two
+three

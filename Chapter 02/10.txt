@@ -1,0 +1,41 @@
+package main
+
+import (
+  "fmt"
+  "math/cmplx"
+)
+
+func main() {
+  // Create a complex number using built-in function complex()
+  z := complex(2, 3) // 2 + 3i
+
+  // Display the complex number
+  fmt.Println("Complex number z:", z)
+
+  // Extract real and imaginary parts
+  realPart := real(z)
+  imaginaryPart := imag(z)
+
+  fmt.Println("Real part:", realPart)
+  fmt.Println("Imaginary part:", imaginaryPart)
+
+  // Calculate the absolute value (magnitude) of the complex number
+  absValue := cmplx.Abs(z)
+  fmt.Println("Absolute value:", absValue)
+
+  // Create a new complex number using real and imaginary parts
+  newComplex := complex(4, -1) // 4 - 1i
+  fmt.Println("New complex number:", newComplex)
+
+  // Perform complex arithmetic
+  sum := z + newComplex
+  difference := z - newComplex
+  product := z * newComplex
+  quotient := z / newComplex
+
+  fmt.Println("Sum:", sum)
+  fmt.Println("Difference:", difference)
+  fmt.Println("Product:", product)
+  fmt.Println("Quotient:", quotient)
+}
+

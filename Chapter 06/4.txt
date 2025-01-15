@@ -1,0 +1,17 @@
+// Sending data to the server
+message := "Hello, server!"
+_, err := conn.Write([]byte(message))
+if err != nil {
+fmt.Println("Error sending data:", err)
+return
+}
+
+// Receiving data from the server
+buffer := make([]byte, 1024)
+n, err := conn.Read(buffer)
+if err != nil {
+fmt.Println("Error receiving data:", err)
+return
+}
+response := string(buffer[:n])
+fmt.Println("Server says:", response)

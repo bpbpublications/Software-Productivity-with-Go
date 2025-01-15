@@ -1,0 +1,18 @@
+type HashTable struct {
+data map[int]int
+}
+
+func NewHashTable() *HashTable {
+return &HashTable{
+data: make(map[int]int),
+}
+}
+
+func (h *HashTable) Insert(key, value int) {
+h.data[key] = value
+}
+
+func (h *HashTable) Search(key int) (int, bool) {
+val, ok := h.data[key]
+return val, ok
+}

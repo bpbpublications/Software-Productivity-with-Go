@@ -1,0 +1,39 @@
+var: Declares a variable.
+var age int
+const: Declares a constant.
+
+const pi = 3.14159
+func: Declares a function.
+func add(a, b int) int {
+    return a + b
+}
+
+return: Exits a function and returns a value.
+func divide(a, b float64) float64 {
+    if b == 0 {
+        return 0.0
+    }
+    return a / b
+}
+
+if: Used for conditional branching.
+if x > 10 {
+    fmt.Println("x is greater than 10")
+} else {
+    fmt.Println("x is not greater than 10")
+}
+
+else: Used in conjunction with if for alternative execution.
+if temperature > 30 {
+    fmt.Println("It's hot outside!")
+} else if temperature < 10 {
+    fmt.Println("It's cold outside!")
+} else {
+    fmt.Println("It's a moderate temperature.")
+}
+
+
+for: Used for loops.
+for i := 0; i < 5; i++ {
+    fmt.Println(i)
+}

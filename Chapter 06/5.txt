@@ -1,0 +1,39 @@
+package main
+import (
+"fmt"
+"net"
+)
+
+func main() {
+// Create a UDP address to listen on
+udpAddress, err := net.ResolveUDPAddr("udp", ":8080")
+if err != nil {
+fmt.Println("Error:", err)
+return
+}
+
+// Create a UDP connection
+udpConn, err := net.ListenUDP("udp", udpAddress)
+if err != nil {
+fmt.Println("Error:", err)
+return
+}
+defer udpConn.Close()
+
+fmt.Println("UDP Server is listening on port 8080")
+
+buffer := make([]byte, 1024)
+
+for {
+// Read UDP datagrams
+n, addr, err := udpConn.ReadFromUDP(buffer)
+if err != nil {
+fmt.Println("Error reading:", err)
+return
+}
+
+// Handle the received datagram
+message := string(buffer[:n])
+fmt.Printf("Received UDP datagram from %s: %s\n", addr, message)
+}
+}

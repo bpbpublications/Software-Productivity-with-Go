@@ -1,0 +1,14 @@
+func printNumbers() {
+    for i := 1; i <= 5; i++ {
+        fmt.Println(i)
+    }
+}
+
+func main() {
+    // Creating a Goroutine for the printNumbers function
+    go printNumbers()
+
+    // The main Goroutine continues its execution concurrently with the printNumbers Goroutine
+    fmt.Println("Main function continues to execute...")
+}
+

@@ -1,0 +1,27 @@
+package main
+
+import (
+    "crypto/tls"
+    "fmt"
+)
+
+func main() {
+    config := tls.Config{InsecureSkipVerify: true}
+
+    conn, err := tls.Dial("tcp", "localhost:8080", &config)
+    if err != nil {
+        fmt.Println("Error connecting to server:", err)
+        return
+    }
+    defer conn.Close()
+
+    buffer := make([]byte, 1024)
+    n, err := conn.Read(buffer)
+    if err != nil {
+        fmt.Println("Error reading data:", err)
+        return
+    }
+
+    fmt.Println("Server response:", string(buffer[:n]))
+}
+

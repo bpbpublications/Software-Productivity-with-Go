@@ -1,0 +1,32 @@
+package main
+
+import (
+    "log"
+    "os"
+)
+
+var (
+    myfile *os.FileInfo
+    es     error
+)
+
+func main() {
+    // Stat() function returns the file info and
+    // if there is no file, then it will return an error
+    myfile, es := os.Stat("helloo.txt")
+    if es != nil {
+        // Checking if the given file exists or not
+        // Using the IsNotExist() function
+        if os.IsNotExist(es) {
+            log.Fatal("File not Found")
+        } else {
+            log.Fatal("Error occurred while accessing the file")
+        }
+    }
+
+    log.Println("File Exist")
+    log.Println("File Details:")
+    log.Println("Name: ", myfile.Name())
+    log.Println("Size: ", myfile.Size())
+}
+

@@ -1,0 +1,14 @@
+type Graph struct {
+AdjList map[int][]int
+}
+
+func (g *Graph) DFS(node int, visited map[int]bool) {
+visited[node] = true
+fmt.Println(node)
+
+for _, neighbor := range g.AdjList[node] {
+if !visited[neighbor] {
+g.DFS(neighbor, visited)
+}
+}
+}

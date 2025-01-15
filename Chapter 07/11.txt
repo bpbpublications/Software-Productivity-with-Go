@@ -1,0 +1,19 @@
+package main
+
+import (
+    "fmt"
+    "github.com/spf13/viper"
+)
+
+func main() {
+    viper.SetConfigName("config")
+    viper.AddConfigPath(".")
+    viper.SetConfigType("yaml")
+    viper.ReadInConfig()
+    
+    dbUser := viper.GetString("db.user")
+    dbPassword := viper.GetString("db.password")
+    
+    fmt.Println("Database User:", dbUser)
+    fmt.Println("Database Password:", dbPassword)
+}

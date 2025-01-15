@@ -1,0 +1,55 @@
+package main
+
+import (
+"fmt"
+"github.com/gorilla/websocket"
+"net/url"
+"os"
+"os/signal"
+"time"
+)
+
+func main() {
+u := url.URL{Scheme: "ws", Host: "localhost:8080", Path: "/ws"}
+c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+if err != nil {
+fmt.Println("Error connecting to WebSocket server:", err)
+return
+}
+defer c.Close()
+
+done := make(chan struct{})
+
+// Handle incoming WebSocket messages
+go func() {
+defer close(done)
+for {
+messageType, p, err := c.ReadMessage()
+if err != nil {
+fmt.Println("Error reading WebSocket message:", err)
+return
+}
+fmt.Printf("Received message: %s\n", p)
+
+// Send a message to the server
+err = c.WriteMessage(messageType, []byte("Hello, WebSocket server!"))
+if err != nil {
+fmt.Println("Error writing WebSocket message:", err)
+return
+}
+}
+}()
+
+// Capture interrupt signal to gracefully close the WebSocket connection
+cInt := make(chan os.Signal, 1)
+signal.Notify(cInt, os.Interrupt)
+
+select {
+case <-done:
+case <-cInt:
+fmt.Println("Closing WebSocket connection...")
+c.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+time.Sleep(time.Second)
+}
+}
+

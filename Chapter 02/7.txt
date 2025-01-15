@@ -1,0 +1,13 @@
+package main
+import "fmt"
+func main() 
+{
+    x := 22.46
+    y := 35.88
+    // Subtract of two floating-point number
+    z := y-x
+    // Display result
+    fmt.Printf("Result is: %f", z)
+    // Display type of c variable
+    fmt.Printf("\nThe type of z is : %T", z) 
+}

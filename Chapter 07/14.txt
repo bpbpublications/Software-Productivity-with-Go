@@ -1,0 +1,23 @@
+
+import (
+    "fmt"
+    "os"
+    "github.com/sirupsen/logrus"
+)
+
+func main() {
+    log := logrus.New()
+    log.SetOutput(os.Stdout)
+    log.SetFormatter(&logrus.JSONFormatter{})
+    
+    err := performSensitiveOperation()
+    if err != nil {
+        log.WithError(err).Error("Failed to perform sensitive operation")
+    }
+}
+
+func performSensitiveOperation() error {
+    // Sensitive operation code here
+    return fmt.Errorf("error message with sensitive details")
+}
+

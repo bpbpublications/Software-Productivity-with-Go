@@ -1,0 +1,23 @@
+package main
+
+import "fmt"
+
+func main() {
+    // Declare some variables
+    temperature := 25
+    isSummer := true
+    
+    // Check if it's a hot day
+    isHot := temperature > 30 && isSummer
+    
+    // Check if it's a cold day
+    isCold := temperature < 10
+    
+    // Check if it's a pleasant day
+    isPleasant := !isHot && !isCold
+    
+    // Display the weather conditions
+    fmt.Printf("Is it a hot day? %t\n", isHot)
+    fmt.Printf("Is it a cold day? %t\n", isCold)
+    fmt.Printf("Is it a pleasant day? %t\n", isPleasant)
+}

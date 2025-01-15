@@ -1,0 +1,9 @@
+type PathError struct {
+    Op   string  // The operation that caused the error (e.g., "open", "read", "write")
+    Path string  // The path where the error occurred
+    Err  error   // The underlying error
+}
+
+func (e *PathError) Error() string {
+    return e.Op + " " + e.Path + ": " + e.Err.Error()
+}

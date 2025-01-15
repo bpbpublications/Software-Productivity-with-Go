@@ -1,0 +1,18 @@
+// CustomError is a custom error type.
+type CustomError struct {
+    message string
+}
+
+func (e CustomError) Error() string {
+    return e.message
+}
+
+// SomeFunction returns a custom error if an error occurs.
+func SomeFunction() error {
+    // Some operation that might result in an error.
+    if err := doSomething(); err != nil {
+        return CustomError{message: "An error occurred while doing something."}
+    }
+    return nil
+}
+

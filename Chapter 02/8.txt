@@ -1,0 +1,29 @@
+package main
+
+import "fmt"
+
+func main() {
+    // Addition of floating-point numbers
+    num1 := 3.14
+    num2 := 2.71
+    sum := num1 + num2
+    fmt.Printf("Sum: %f\n", sum)
+
+    // Multiplication of floating-point numbers
+    width := 5.6
+    height := 8.9
+    area := width * height
+    fmt.Printf("Area: %f\n", area)
+
+    // Division of floating-point numbers
+    dividend := 10.0
+    divisor := 3.0
+    quotient := dividend / divisor
+    fmt.Printf("Quotient: %f\n", quotient)
+
+    // Using float32 and float64
+    var f32 float32 = 3.14159
+    var f64 float64 = 3.141592653589793
+    fmt.Printf("float32: %f\n", f32)
+    fmt.Printf("float64: %f\n", f64)
+}

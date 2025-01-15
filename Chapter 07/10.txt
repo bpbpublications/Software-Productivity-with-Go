@@ -1,0 +1,16 @@
+package main
+
+import (
+    "github.com/pquerna/otp/totp"
+    "fmt"
+)
+
+func main() {
+    key, _ := totp.Generate(totp.GenerateOpts{
+        ISSuer:      "MyApp",
+        AccountName: "user@example.com",
+    })
+    qrCode, _ := key.QRCode()
+    fmt.Println("Scan this QR code:", qrCode)
+}
+
